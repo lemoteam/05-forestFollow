@@ -9,7 +9,7 @@ public class PathForest : MonoBehaviour
 	private List<Transform> nodes = new List<Transform>();
 
 
-	private void OnDrawGizmos()
+	private void OnDrawGizmosSelected()
 	{
 		Gizmos.color = lineColor;
 
@@ -38,6 +38,7 @@ public class PathForest : MonoBehaviour
 			}
 			
 			Gizmos.DrawLine(previousNode, currentNode);
+			Gizmos.DrawWireSphere(currentNode, .1f);
 		}
 	}
 }
