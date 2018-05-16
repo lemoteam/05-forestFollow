@@ -45,8 +45,8 @@ public class CharacterForest : MonoBehaviour
 
 	private void Move()
 	{
-		wheelL.motorTorque = 10f;
-		wheelR.motorTorque = 10f;
+		wheelL.motorTorque = 15f;
+		wheelR.motorTorque = 15f;
 	}
 
 	private void ApplySteer()
