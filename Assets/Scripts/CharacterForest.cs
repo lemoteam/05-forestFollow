@@ -34,8 +34,8 @@ public class CharacterForest : MonoBehaviour
 
 	private void Move()
 	{
-		wheelL.motorTorque = 20f;
-		wheelR.motorTorque = 20f;
+		wheelL.motorTorque = 10f;
+		wheelR.motorTorque = 10f;
 	}
 
 	private void ApplySteer()
@@ -51,7 +51,7 @@ public class CharacterForest : MonoBehaviour
 	{
 		//Debug.Log(Vector3.Distance(transform.position, nodes[currentNode].position).ToString());
 
-		if (Vector3.Distance(transform.position, nodes[currentNode].position) < 0.6f)
+		if (Vector3.Distance(transform.position, nodes[currentNode].position) < 0.8f)
 		{
 			if (currentNode == nodes.Count - 1)
 			{
