@@ -5,16 +5,21 @@ using UnityEngine;
 public class CharacterForest : MonoBehaviour
 {
 	public Transform path;
+	public GameObject forestElementsContainer;
 	public float maxSteerAngle = 45f; 
 	public WheelCollider wheelL;
 	public WheelCollider wheelR;
 	private List<Transform> nodes;
+	private List<Transform> forestElNodes;
 	private int currentNode = 0;
 
 	private void Start()
 	{
 		var pathTransforms = path.GetComponentsInChildren<Transform>();
+		var forestElements = forestElementsContainer;
+		
 		nodes = new List<Transform>();
+		forestElNodes = new List<Transform>();
 
 		for (var i = 0; i < pathTransforms.Length; i++)
 		{
@@ -23,6 +28,11 @@ public class CharacterForest : MonoBehaviour
 				nodes.Add(pathTransforms[i]);
 			}
 		}
+
+		for (int i = 0; i < forestElements.transform.childCount; i++)
+		{			
+			forestElNodes.Add(forestElements.transform.GetChild(i));
+		}
 	}
 
 	private void FixedUpdate()
@@ -30,6 +40,7 @@ public class CharacterForest : MonoBehaviour
 		ApplySteer();
 		Move();
 		CheckWaypointDistance();
+		CheckForestElementsDistance();
 	}
 
 	private void Move()
@@ -62,6 +73,28 @@ public class CharacterForest : MonoBehaviour
 			{
 				currentNode++;
 				Debug.Log(currentNode);
+			}
+		}
+	}
+
+
+	private void CheckForestElementsDistance()
+	{
+		foreach (var node in forestElNodes)
+		{
+			var elementForest = node.GetComponent<ElementForest>();
+
+			if (Vector3.Distance(transform.position, node.position) < 1f)
+			{
+				if (!elementForest.isActive)
+				{
+					elementForest.activeAnimation();
+				}
+			} else {
+				if (elementForest.isActive)
+				{
+					elementForest.unactiveAnimation();
+				}
 			}
 		}
 	}
