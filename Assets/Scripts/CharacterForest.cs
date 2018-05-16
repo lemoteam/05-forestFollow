@@ -5,6 +5,8 @@ using UnityEngine;
 public class CharacterForest : MonoBehaviour
 {
 	public Transform path;
+	public float maxSteerAngle = 45f; 
+	public WheelCollider wheel;
 	private List<Transform> nodes;
 	private int currentNode = 0;
 
@@ -24,11 +26,20 @@ public class CharacterForest : MonoBehaviour
 
 	private void FixedUpdate()
 	{
+		ApplySteer();
 		Move();
 	}
 
 	private void Move()
 	{
 		
+	}
+
+	private void ApplySteer()
+	{
+		var relativeVector = transform.InverseTransformPoint(nodes[currentNode].position);
+		var wheelAngle = (relativeVector.x / relativeVector.magnitude) * maxSteerAngle;
+		wheel.steerAngle = wheelAngle;
+		Debug.Log(wheelAngle);
 	}
 }

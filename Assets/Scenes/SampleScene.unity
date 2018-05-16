@@ -320,7 +320,7 @@ WheelCollider:
   m_SuspensionSpring:
     spring: 35000
     damper: 4500
-    targetPosition: 0.5
+    targetPosition: 0
   m_SuspensionDistance: 0.2
   m_ForceAppPointDistance: 0
   m_Mass: 20
@@ -356,8 +356,8 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!64 &314192528
-MeshCollider:
+--- !u!136 &314192528
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -365,11 +365,10 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &314192529
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -694,7 +693,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 944189114}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.006, y: 0, z: -0.435}
+  m_LocalPosition: {x: 0, y: 0, z: -0.435}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 627444734}
@@ -864,7 +863,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1407239359}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.294, y: 0, z: -0.298}
+  m_LocalPosition: {x: 0.3, y: 0, z: -0.298}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 627444734}
@@ -878,8 +877,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1625600319}
-  - component: {fileID: 1625600318}
   - component: {fileID: 1625600317}
+  - component: {fileID: 1625600318}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -913,7 +912,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c26754887da6643768854eb058d63bee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: {fileID: 0}
+  path: {fileID: 627444734}
+  maxSteerAngle: 45
+  wheel: {fileID: 286555980}
 --- !u!4 &1625600319
 Transform:
   m_ObjectHideFlags: 0
@@ -921,7 +922,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1625600316}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.05, y: 0.75, z: -4.23}
+  m_LocalPosition: {x: 0, y: 0.75, z: -4.35}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children:
   - {fileID: 314192531}
