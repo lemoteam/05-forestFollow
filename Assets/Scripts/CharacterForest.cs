@@ -12,6 +12,7 @@ public class CharacterForest : MonoBehaviour
 	private List<Transform> nodes;
 	private List<Transform> forestElNodes;
 	private int currentNode = 0;
+	private bool move = true;
 
 	private void Start()
 	{
@@ -38,7 +39,16 @@ public class CharacterForest : MonoBehaviour
 	private void FixedUpdate()
 	{
 		ApplySteer();
-		Move();
+
+		if (move)
+		{
+			Move();
+		}
+		else
+		{
+			Stop();
+		}
+		
 		CheckWaypointDistance();
 		CheckForestElementsDistance();
 	}
@@ -47,6 +57,13 @@ public class CharacterForest : MonoBehaviour
 	{
 		wheelL.motorTorque = 15f;
 		wheelR.motorTorque = 15f;
+	}
+	
+	private void Stop()
+	{
+		wheelL.motorTorque = 0f;
+		wheelR.motorTorque = 0f;
+		Debug.Log("STOOOOOOP");
 	}
 
 	private void ApplySteer()
@@ -67,6 +84,8 @@ public class CharacterForest : MonoBehaviour
 			if (currentNode == nodes.Count - 1)
 			{
 				currentNode = 0;
+				move = false;
+				Debug.Log("STOOOOP PLEASE");
 				Debug.Log(currentNode);
 			}
 			else
