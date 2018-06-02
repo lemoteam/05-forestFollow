@@ -82,20 +82,17 @@ public class CharacterForest : MonoBehaviour
 		var wheelAngle = (relativeVector.x / relativeVector.magnitude) * maxSteerAngle;
 		wheelL.steerAngle = wheelAngle;
 		wheelR.steerAngle = wheelAngle;
-		//Debug.Log(wheelAngle);
 	}
 
 	private void CheckWaypointDistance()
 	{
-		//Debug.Log(Vector3.Distance(transform.position, nodes[currentNode].position).ToString());
-
 		if (Vector3.Distance(transform.position, nodes[currentNode].position) < 0.8f)
 		{
 			if (currentNode == nodes.Count - 1)
 			{
 				currentNode = 0;
 				move = false;
-				Debug.Log("STOOOOP PLEASE");
+				//Debug.Log("STOOOOP PLEASE");
 				Debug.Log(currentNode);
 			}
 			else
@@ -135,19 +132,18 @@ public class CharacterForest : MonoBehaviour
 		foreach (var node in forestTrNodes)
 		{
 			var elementForest = node.GetComponent<TreeForest>();
+			
+			Debug.Log(Vector3.Distance(transform.position, node.position));
 
-			if (Vector3.Distance(transform.position, node.position) < 1f)
+			
+			if (Vector3.Distance(transform.position, node.position) < 1.6f)
 			{
+				
 				if (!elementForest.isActive)
 				{
 					elementForest.activeAnimation();
 				}
-			} else {
-				if (elementForest.isActive)
-				{
-					elementForest.unactiveAnimation();
-				}
-			}
+			} 
 		}
 	}
 }

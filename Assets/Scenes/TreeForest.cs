@@ -12,7 +12,7 @@ public class TreeForest : MonoBehaviour {
 	private bool isCurrentPositionSet;
 	
 	private float gemReplaceFraction = 0;
-	private float gemReplaceSpeed = 1f;
+	private float gemReplaceSpeed = .6f;
 	
 
 	private void Start()
@@ -21,9 +21,9 @@ public class TreeForest : MonoBehaviour {
 		elementPosition = transform.position;
 
 		if (direction) {
-			destinationPosition = new Vector3(-1, elementPosition.y, elementPosition.z);
+			destinationPosition = new Vector3(elementPosition.x - .6f, elementPosition.y, elementPosition.z);
 		} else {
-			destinationPosition = new Vector3(1, elementPosition.y, elementPosition.z);
+			destinationPosition = new Vector3(elementPosition.x + .6f, elementPosition.y, elementPosition.z);
 		} 
 	}
 
@@ -34,21 +34,14 @@ public class TreeForest : MonoBehaviour {
 		
 		if (isActive)
 		{			
-			if (!(gemReplaceFraction < 1)) return;
+			if (!(gemReplaceFraction < 1))
+			{
+				isActive = false;
+			};
 			gemReplaceFraction += Time.deltaTime * gemReplaceSpeed;
 			transform.position = new Vector3(Mathf.SmoothStep(currentPosition.x, destinationPosition.x, CubicEaseOut(gemReplaceFraction)), transform.position.y, transform.position.z);
 			
-		} else {
-			
-			if (!isCurrentPositionSet) {
-				currentPosition = transform.position;
-				isCurrentPositionSet = true;
-			}
-			
-			if (!(gemReplaceFraction < 1));
-			gemReplaceFraction += Time.deltaTime * gemReplaceSpeed;
-			transform.position = new Vector3(Mathf.SmoothStep(currentPosition.x, elementPosition.x, CubicEaseOut(gemReplaceFraction)), transform.position.y, transform.position.z);
-		}
+		} 
 	}
 
 
@@ -58,13 +51,6 @@ public class TreeForest : MonoBehaviour {
 		gemReplaceFraction = 0;
 		isCurrentPositionSet = false;
 		currentPosition = transform.position;
-	}
-
-
-
-	public void unactiveAnimation() {
-		isActive = false;
-		gemReplaceFraction = 0;
 	}
 	
 	
