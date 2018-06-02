@@ -6,11 +6,13 @@ public class CharacterForest : MonoBehaviour
 {
 	public Transform path;
 	public GameObject forestElementsContainer;
+	public GameObject forestTreesContainer;
 	public float maxSteerAngle = 45f; 
 	public WheelCollider wheelL;
 	public WheelCollider wheelR;
 	private List<Transform> nodes;
 	private List<Transform> forestElNodes;
+	private List<Transform> forestTrNodes;
 	private int currentNode = 0;
 	private bool move = true;
 
@@ -18,9 +20,11 @@ public class CharacterForest : MonoBehaviour
 	{
 		var pathTransforms = path.GetComponentsInChildren<Transform>();
 		var forestElements = forestElementsContainer;
+		var forestTrees = forestTreesContainer;
 		
 		nodes = new List<Transform>();
 		forestElNodes = new List<Transform>();
+		forestTrNodes = new List<Transform>();
 
 		for (var i = 0; i < pathTransforms.Length; i++)
 		{
@@ -30,9 +34,14 @@ public class CharacterForest : MonoBehaviour
 			}
 		}
 
-		for (int i = 0; i < forestElements.transform.childCount; i++)
+		for (var i = 0; i < forestElements.transform.childCount; i++)
 		{			
 			forestElNodes.Add(forestElements.transform.GetChild(i));
+		}
+		
+		for (var i = 0; i < forestTrees.transform.childCount; i++)
+		{			
+			forestTrNodes.Add(forestTrees.transform.GetChild(i));
 		}
 	}
 
@@ -51,12 +60,13 @@ public class CharacterForest : MonoBehaviour
 		
 		CheckWaypointDistance();
 		CheckForestElementsDistance();
+		CheckForestTreesDistance();
 	}
 
 	private void Move()
 	{
-		wheelL.motorTorque = 15f;
-		wheelR.motorTorque = 15f;
+		wheelL.motorTorque = 5f;
+		wheelR.motorTorque = 5f;
 	}
 	
 	private void Stop()
@@ -102,6 +112,29 @@ public class CharacterForest : MonoBehaviour
 		foreach (var node in forestElNodes)
 		{
 			var elementForest = node.GetComponent<ElementForest>();
+
+			if (Vector3.Distance(transform.position, node.position) < 1f)
+			{
+				if (!elementForest.isActive)
+				{
+					elementForest.activeAnimation();
+				}
+			} else {
+				if (elementForest.isActive)
+				{
+					elementForest.unactiveAnimation();
+				}
+			}
+		}
+	}
+	
+	
+	
+	private void CheckForestTreesDistance()
+	{
+		foreach (var node in forestTrNodes)
+		{
+			var elementForest = node.GetComponent<TreeForest>();
 
 			if (Vector3.Distance(transform.position, node.position) < 1f)
 			{
